@@ -1,0 +1,173 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+
+*,
+*::before,
+*::after {
+  font-family: "Poppins", sans-serif;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #222;
+  background: linear-gradient(135deg, #da4453, #89216b);
+}
+
+main {
+  background: #eee;
+  padding: 32px;
+  border-radius: 8px;
+  width: clamp(320px, 90%, 600px);
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+}
+
+p {
+  margin-bottom: 32px;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  transition: 0.3s;
+  background: #da4453;
+  color: #fff;
+}
+
+button:is(:active, :hover) {
+  background: #bf3648;
+}
+
+button:focus {
+  outline-color: #222;
+}
+
+.skills {
+  list-style-type: none;
+  display: grid;
+  gap: 8px;
+  counter-reset: rank;
+  user-select: none;
+}
+
+.skills li {
+  --size: 36px;
+  background: #fff;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.skills li[draggable="true"] {
+  cursor: grab;
+}
+
+.skills li.dragging {
+  opacity: 0.5;
+}
+
+.skills li::before {
+  counter-increment: rank;
+  content: counter(rank);
+  width: var(--size);
+  height: var(--size);
+  background: #da4453;
+  color: #fff;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.skills span {
+  font-weight: 500;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.skills button {
+  outline: none;
+  width: var(--size);
+  height: var(--size);
+  color: #ddd;
+  background: transparent;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.skills button:is(:active, :hover) {
+  color: #bf3648;
+}
+
+.skills + div {
+  display: none;
+}
+
+.skills:empty + div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  border: 2px solid #ddd;
+  border-radius: 4px;
+  background: #e7e7e7;
+  font-size: 0.875rem;
+}
+
+.add-skill {
+  width: 48px;
+  height: 48px;
+  font-size: 2rem;
+  border-radius: 50%;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.25);
+  position: fixed;
+  bottom: 10%;
+  right: 10%;
+}
+
+.skill-modal[open] {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.25);
+  user-select: none;
+}
+
+.skill-modal::backdrop {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px);
+  cursor: pointer;
+}
+
+.skill-modal form {
+  width: 300px;
+  display: grid;
+  gap: 16px;
+  padding: 32px;
+}
+
+.skill-modal input {
+  width: 100%;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  outline-color: #222;
+  padding: 8px 16px;
+}
