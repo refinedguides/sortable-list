@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const skills = document.querySelector(".skills");
   const addSkillButton = document.querySelector(".add-skill");
   const skillModal = document.querySelector(".skill-modal");
+  const skillInput = skillModal.querySelector("#skill");
 
   //* functions
 
@@ -12,7 +13,9 @@ document.addEventListener("DOMContentLoaded", () => {
     li.innerHTML = `<span>${text}</span><button>&times;</button>`;
 
     li.addEventListener("dragstart", (e) => {
-      e.target.classList.add("dragging");
+      e.dataTransfer.effectAllowed = "move";
+      e.dataTransfer.setData("text/plain", "");
+      setTimeout(() => e.target.classList.add("dragging"), 0);
     });
 
     li.addEventListener("dragend", (e) => {
@@ -72,11 +75,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // reset the form
+  skillModal.addEventListener("close", () => {
+    skillModal.querySelector("form").reset();
+  });
+
   // handle form submit
   skillModal.querySelector("form").addEventListener("submit", (e) => {
     e.preventDefault(); // prevent form submission
 
-    const skill = skillModal.querySelector("#skill").value.trim();
+    const skill = skillInput.value.trim();
 
     if (skill) {
       // create the list item and append to skills list
@@ -85,8 +93,8 @@ document.addEventListener("DOMContentLoaded", () => {
       // close the modal
       skillModal.close();
 
-      // reset the form
-      e.target.reset();
+      // hide keyboard on mobile by blurring the input
+      skillInput.blur();
 
       // update local storage
       saveItems();
@@ -113,6 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // handle dragging over other items
   skills.addEventListener("dragover", (e) => {
     e.preventDefault(); // allow drop
+    e.dataTransfer.dropEffect = "move";
 
     const target = e.target.closest("li");
     const draggedItem = document.querySelector(".dragging");

@@ -10,15 +10,17 @@
 }
 
 body {
-  min-height: 100vh;
+  padding-top: 2rem;
+  min-height: 100dvh;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
   color: #222;
   background: linear-gradient(135deg, #da4453, #89216b);
 }
 
 main {
+  margin-block: auto;
   background: #eee;
   padding: 32px;
   border-radius: 8px;
@@ -59,7 +61,7 @@ button:focus {
 }
 
 .skills li {
-  --size: 36px;
+  --size: 42px;
   background: #fff;
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
@@ -140,7 +142,6 @@ button:focus {
 }
 
 .skill-modal[open] {
-  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
